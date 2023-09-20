@@ -1,4 +1,4 @@
-# VKundli
+# EKundli
 This script generates kundli.
 
 <img src="screenshots/screenshot_0.PNG">   
