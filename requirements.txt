@@ -1,2 +1,2 @@
-SiderealKundliCraft
+sideralib
 pillow

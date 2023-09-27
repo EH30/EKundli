@@ -1,5 +1,5 @@
 from datetime import datetime
-from SiderealKundliCraft import AstroChart, SiderealAstroData
+from sideralib import astrochart, astrodata
 
 
 class DataHouse:
@@ -13,7 +13,7 @@ class DataHouse:
         self.planets          = {}
 
 class AstroCharts:
-    def __init__(self, planetData:SiderealAstroData.AstroData, latitude:float, longitude:float, utc:list):
+    def __init__(self, planetData:astrodata.AstroData, latitude:float, longitude:float, utc:list):
         self.latitude  = latitude
         self.longitude = longitude
         self.utc  = utc
@@ -30,20 +30,20 @@ class AstroCharts:
 
     
     def lagnaChart(self) -> list[DataHouse]:
-        data = AstroChart.Chart(self.data.planets_rashi())
+        data = astrochart.Chart(self.data.planets_rashi())
         return data.lagnaChart()
     
     def moonChart(self) -> list[DataHouse]:
-        data = AstroChart.Chart(self.data.planets_rashi())
+        data = astrochart.Chart(self.data.planets_rashi())
         return data.moonChart()
     
     def transitKundli(self) -> list[DataHouse]:
-        tdata = SiderealAstroData.AstroData(
+        tdata = astrodata.AstroData(
             int(datetime.now().strftime("%Y")), int(datetime.now().strftime("%m")),int(datetime.now().strftime("%d")), int(datetime.now().strftime("%H")), 
             int(datetime.now().strftime("%M")), 0, int(self.utc[0]), int(self.utc[1]), self.latitude, self.longitude)
         houses = []
         lagna_chart   = self.lagnaChart() 
-        current_chart = AstroChart.Chart(tdata.planets_rashi()).lagnaChart()
+        current_chart = astrochart.Chart(tdata.planets_rashi()).lagnaChart()
         
         for i in range(len(lagna_chart)):
             temp = DataHouse()
@@ -58,7 +58,7 @@ class AstroCharts:
                         houses[x].asc_signlon  = current_chart[i].asc_signlon
                         houses[x].asc_minute   = current_chart[i].asc_minute
                         houses[x].asc_second   = current_chart[i].asc_second
-                        houses[x].asc_degree   = AstroChart.Chart.degree_minute_second_st(None, current_chart[i].asc_signlon, current_chart[i].asc_minute, current_chart[i].asc_second)
+                        houses[x].asc_degree   = astrochart.Chart.degree_minute_second_st(None, current_chart[i].asc_signlon, current_chart[i].asc_minute, current_chart[i].asc_second)
                         
             
             if len(current_chart[i].planets) != 0:
